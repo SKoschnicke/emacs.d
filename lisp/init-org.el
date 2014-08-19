@@ -15,11 +15,16 @@
       org-completion-use-ido t
       org-edit-timestamp-down-means-later t
       org-agenda-start-on-weekday nil
-      org-agenda-span 14
+      org-agenda-span 21
       org-agenda-include-diary t
       org-agenda-window-setup 'current-window
       org-fast-tag-selection-single-key 'expert
       org-export-kill-product-buffer-when-displayed t
+      org-pretty-entities t
+      org-pretty-entities-include-sub-superscripts t
+      org-agenda-log-mode-items (list 'closed 'clock 'state)
+      org-agenda-skip-deadline-if-done t
+      org-agenda-skip-scheduled-if-done t
       org-tags-column 80)
 
 
@@ -126,5 +131,81 @@
      (sql . nil)
      (sqlite . t))))
 
+; function to insert code block in org-mode
+(defun org-insert-src-block (src-code-type)
+  "Insert a `SRC-CODE-TYPE' type source code block in org-mode."
+  (interactive
+   (let ((src-code-types
+          '("emacs-lisp" "python" "C" "sh" "java" "js" "clojure" "C++" "css"
+            "calc" "asymptote" "dot" "gnuplot" "ledger" "lilypond" "mscgen"
+            "octave" "oz" "plantuml" "R" "sass" "screen" "sql" "awk" "ditaa"
+            "haskell" "latex" "lisp" "matlab" "ocaml" "org" "perl" "ruby"
+            "scheme" "sqlite" "javascript")))
+     (list (ido-completing-read "Source code type: " src-code-types))))
+  (progn
+    (newline-and-indent)
+    (insert (format "#+BEGIN_SRC %s\n" src-code-type))
+    (newline-and-indent)
+    (insert "#+END_SRC\n")
+    (previous-line 2)
+    (org-edit-src-code)))
+
+; key binding for above
+(after-load 'org
+  (add-hook 'org-mode-hook '(lambda ()
+                              ;; turn on flyspell-mode by default
+                              (flyspell-mode 1)
+                              ;; C-TAB for expanding (yasnippets)
+                              (local-set-key (kbd "C-<tab>")
+                                             'yas/expand-from-trigger-key)
+                              ;; keybinding for editing source code blocks
+                              (local-set-key (kbd "C-c s e")
+                                             'org-edit-src-code)
+                              ;; keybinding for inserting code blocks
+                              (local-set-key (kbd "C-c s i")
+                                             'org-insert-src-block)
+                              )))
+
+; enable syntax highlighting in soruce blocks
+(setq org-src-fontify-natively t)
+
+;;;;;;;;;;;;;;;;;;;;;;
+;;; calendar and diary
+(eval-after-load "calendar"
+  '(european-calendar))
+(setq number-of-diary-entries 5
+      mark-diary-entries-in-calendar t
+      calendar-offset -1
+      calendar-location-name "Kiel"
+      calendar-latitude 54.33
+      calendar-longitude 10.13
+      calendar-time-display-form '(24-hours ":" minutes
+                                            (if time-zone " (")
+                                            time-zone
+                                            (if time-zone ")"))
+      calendar-holidays '((holiday-fixed 01 01 "Gesetzlicher Feiertag (Neujahr)")
+                          (holiday-fixed 05 01 "Gesetzlicher Feiertag (Maifeiertag)")
+                          (holiday-fixed 10 03 "Gesetzlicher Feiertag (Tag der Deutschen Einheit)")
+                          (holiday-fixed 12 25 "Gesetzlicher Feiertag (1. Weihnachtstag)")
+                          (holiday-fixed 12 26 "Gesetzlicher Feiertag (2. Weihnachtstag)")
+                          (holiday-easter-etc -2 "Gesetzlicher Feiertag (Karfreitag)")
+                          (holiday-easter-etc  1 "Gesetzlicher Feiertag (Ostermontag)")
+                          (holiday-easter-etc 39 "Gesetzlicher Feiertag (Christi Himmelfahrt)")
+                          (holiday-easter-etc 50 "Gesetzlicher Feiertag (Pfingstmontag)")))
+
+(setq diary-file "~/Dropbox/diary")
+
+(after-load 'org
+    (setq org-agenda-files (list "~/documents/promotion/gedanken.org"
+                                 "~/Dropbox/uni/uni-plan.org"
+                                 "~/Dropbox/privat.org"
+                                 "~/Dropbox/notes.org"
+                                 "~/Dropbox/gfxpro.org"
+                                 "~/Dropbox/isavision.org"
+                                 "~/Dropbox/pav-plan.org"
+                                 "~/Dropbox/getdigital.org"
+                                 "~/documents/promotion/qantrade.org"
+                                 "~/Dropbox/plan.org"
+                                 )))
 
 (provide 'init-org)
