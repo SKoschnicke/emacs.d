@@ -15,5 +15,12 @@
 
 (add-auto-mode 'conf-mode "Procfile")
 
+; insert spaces when pressing tab
+(setq-default indent-tabs-mode nil)
+; set indenting width
+(setq tab-width 2)
+; set other offsets to tab-width
+(setq-default c-basic-offset tab-width)
+(setq-default cperl-indent-level tab-width)
 
 (provide 'init-misc)
