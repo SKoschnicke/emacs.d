@@ -208,4 +208,8 @@
                                  "~/Dropbox/plan.org"
                                  )))
 
+(setq org-export-backends (quote (beamer
+                                  latex
+                                  md)))
+
 (provide 'init-org)

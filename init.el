@@ -100,6 +100,7 @@
 (require 'init-ledger)
 (require 'init-evil)
 (require 'init-wanderlust)
+(require 'init-latex)
 
 ;; Extra packages which don't require any configuration
 
