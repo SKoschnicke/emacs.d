@@ -82,5 +82,22 @@
 (require-package 'git-messenger)
 (global-set-key (kbd "C-x v p") #'git-messenger:popup-message)
 
+(eval-after-load 'magit
+  '(progn
+     ;; Magit mode feels twitchy because every key has a binding, and some are very destructive or
+     ;; disorienting. I'm defining a whitelist of keys that I actually use, so this mode feels less
+     ;; erorr-prone.
+     (evil-define-key 'normal git-rebase-mode-map
+       ";gra" 'git-rebase-abort
+       (kbd "S-C-k") 'git-rebase-move-line-up
+       (kbd "S-C-j") 'git-rebase-move-line-down
+       "e" 'git-rebase-edit
+       "r" 'git-rebase-reword
+       "p" 'git-rebase-pick
+       "dd" 'git-rebase-kill-line
+       "f" 'git-rebase-fixup
+       "s" 'git-rebase-squash
+       (kbd "M-s") 'git-rebase-server-edit
+       "ZZ" 'git-rebase-server-edit)))
 
 (provide 'init-git)
