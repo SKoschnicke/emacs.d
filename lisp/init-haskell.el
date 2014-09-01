@@ -39,12 +39,12 @@ been saved."
 
 (add-auto-mode 'haskell-mode "\\.ghci\\'")
 
-(require-package 'hi2)
-(add-hook 'haskell-mode-hook 'turn-on-hi2)
+;(require-package 'hi2)
+;(add-hook 'haskell-mode-hook 'turn-on-hi2)
 
 (add-hook 'haskell-mode-hook 'haskell-auto-insert-module-template)
 
-(setq-default haskell-stylish-on-save t)
+;(setq-default haskell-stylish-on-save t)
 
 (after-load 'haskell-mode
   (define-key haskell-mode-map (kbd "C-c h") 'hoogle)
@@ -83,11 +83,20 @@ been saved."
   (add-to-list 'ac-modes 'haskell-interactive-mode)
   (add-hook 'haskell-interactive-mode-hook 'set-auto-complete-as-completion-at-point-function))
 
-(add-to-list 'load-path "/home/svk/structured-haskell-mode/elisp")
-(require 'shm)
+(require-package 'shm)
 
 (add-hook 'haskell-mode-hook 'structured-haskell-mode)
-(set-face-background 'shm-current-face "#eee8d5")
-(set-face-background 'shm-quarantine-face "lemonchiffon")
+(after-load 'structured-haskell-mode
+  (set-face-background 'shm-current-face "#eee8d5")
+  (set-face-background 'shm-quarantine-face "lemonchiffon"))
+
+; you need to 'cabal install HaRe' for this see
+; https://github.com/alanz/HaRe/ also you need to set ghc-hare-command
+; to the full path of ghc-hare (~/.cabal/bin/ghc-hare)
+(add-to-list 'load-path
+    "~/.cabal/share/HaRe-0.7.2.7/elisp")
+(require 'hare)
+(autoload 'hare-init "hare" nil t)
+(add-hook 'haskell-mode-hook (lambda () (hare-init)))
 
 (provide 'init-haskell)
