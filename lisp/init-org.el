@@ -228,6 +228,8 @@
          :headline-levels 4
          :html-extension "html"
          :body-only t ;; Only export section between <body> </body> (body-only)
+         :with-toc nil ;; no table of contents (breaks jekyll yaml frontmatter)
+         :section-numbers nil ;; no section numbering
          )
         ("org-static-blog"; (name2)
          :base-directory "~/development/SKoschnicke.github.io/org/images"; (imgsrc)
