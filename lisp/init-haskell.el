@@ -83,5 +83,11 @@ been saved."
   (add-to-list 'ac-modes 'haskell-interactive-mode)
   (add-hook 'haskell-interactive-mode-hook 'set-auto-complete-as-completion-at-point-function))
 
+(add-to-list 'load-path "/home/svk/structured-haskell-mode/elisp")
+(require 'shm)
+
+(add-hook 'haskell-mode-hook 'structured-haskell-mode)
+(set-face-background 'shm-current-face "#eee8d5")
+(set-face-background 'shm-quarantine-face "lemonchiffon")
 
 (provide 'init-haskell)
