@@ -101,6 +101,7 @@
 (require 'init-evil)
 (require 'init-wanderlust)
 (require 'init-latex)
+(require 'init-scala)
 
 ;; Extra packages which don't require any configuration
 
