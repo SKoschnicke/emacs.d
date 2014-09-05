@@ -5,7 +5,7 @@
     (add-to-list 'exec-path-from-shell-variables var)))
 
 
-(when (memq window-system '(mac ns))
+(when (memq window-system '(x mac ns))
   (exec-path-from-shell-initialize))
 
 (provide 'init-exec-path)
