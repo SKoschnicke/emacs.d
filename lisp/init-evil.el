@@ -1,3 +1,5 @@
+(setq evil-want-C-u-scroll t) ;; bind C-u to scroll-up (as in vi)
+
 (when (eval-when-compile (>= emacs-major-version 24))
   (require-package 'evil)
   (add-hook 'after-init-hook 'evil-mode))
