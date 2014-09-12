@@ -193,19 +193,19 @@
                           (holiday-easter-etc 39 "Gesetzlicher Feiertag (Christi Himmelfahrt)")
                           (holiday-easter-etc 50 "Gesetzlicher Feiertag (Pfingstmontag)")))
 
-(setq diary-file "~/Dropbox/diary")
+(setq diary-file "~/Dropbox/org/diary")
 
 (after-load 'org
-    (setq org-agenda-files (list "~/documents/promotion/gedanken.org"
-                                 "~/Dropbox/uni/uni-plan.org"
-                                 "~/Dropbox/privat.org"
-                                 "~/Dropbox/notes.org"
-                                 "~/Dropbox/gfxpro.org"
-                                 "~/Dropbox/isavision.org"
-                                 "~/Dropbox/pav-plan.org"
-                                 "~/Dropbox/getdigital.org"
-                                 "~/documents/promotion/qantrade.org"
-                                 "~/Dropbox/plan.org"
+    (setq org-agenda-files (list "~/Dropbox/org/gedanken.org"
+                                 "~/Dropbox/org/uni-plan.org"
+                                 "~/Dropbox/org/privat.org"
+                                 "~/Dropbox/org/notes.org"
+                                 "~/Dropbox/org/gfxpro.org"
+                                 "~/Dropbox/org/isavision.org"
+                                 "~/Dropbox/org/pav-plan.org"
+                                 "~/Dropbox/org/getdigital.org"
+                                 "~/Dropbox/org/qantrade.org"
+                                 "~/Dropbox/org/plan.org"
                                  )))
 
 (setq org-export-backends (quote (beamer
