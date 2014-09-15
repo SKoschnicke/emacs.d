@@ -1,5 +1,6 @@
-(when (< emacs-major-version 24)
-  (require-package 'org))
+;; Always require org package because it is newer than the build in one
+(require-package 'org)
+(require-package 'org-jekyll)
 (require-package 'org-fstree)
 (when *is-a-mac*
   (require-package 'org-mac-link)
