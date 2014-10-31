@@ -213,33 +213,33 @@
                                   latex
                                   md)))
 
-(require 'org-publish)
-(setq org-publish-project-alist
-      '(("org-blog"; (name1)
-         ;; Path to your org files.
-         :base-directory "~/development/SKoschnicke.github.io/org"; (srcdir)
-         :base-extension "org"; (extension)
-         ;; Path to your Jekyll project.
-         :publishing-directory "~/development/SKoschnicke.github.io/_posts"; (destination)
-         :recursive t
-         ;; this was for org-mode pre-version 8
-         ;;:publishing-function org-publish-org-to-html
-         ;; this is for org-mode version 8 and on
-         :publishing-function org-html-publish-to-html
-         :headline-levels 4
-         :html-extension "html"
-         :body-only t ;; Only export section between <body> </body> (body-only)
-         :with-toc nil ;; no table of contents (breaks jekyll yaml frontmatter)
-         :section-numbers nil ;; no section numbering
-         )
-        ("org-static-blog"; (name2)
-         :base-directory "~/development/SKoschnicke.github.io/org/images"; (imgsrc)
-         :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf\\|php"; (imgext)
-         :publishing-directory "~/development/SKoschnicke.github.io/assets"; (imgdest)
-         :recursive t
-         :publishing-function org-publish-attachment)
+;; (require 'org-publish)
+;; (setq org-publish-project-alist
+;;       '(("org-blog"; (name1)
+;;          ;; Path to your org files.
+;;          :base-directory "~/development/SKoschnicke.github.io/org"; (srcdir)
+;;          :base-extension "org"; (extension)
+;;          ;; Path to your Jekyll project.
+;;          :publishing-directory "~/development/SKoschnicke.github.io/_posts"; (destination)
+;;          :recursive t
+;;          ;; this was for org-mode pre-version 8
+;;          ;;:publishing-function org-publish-org-to-html
+;;          ;; this is for org-mode version 8 and on
+;;          :publishing-function org-html-publish-to-html
+;;          :headline-levels 4
+;;          :html-extension "html"
+;;          :body-only t ;; Only export section between <body> </body> (body-only)
+;;          :with-toc nil ;; no table of contents (breaks jekyll yaml frontmatter)
+;;          :section-numbers nil ;; no section numbering
+;;          )
+;;         ("org-static-blog"; (name2)
+;;          :base-directory "~/development/SKoschnicke.github.io/org/images"; (imgsrc)
+;;          :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf\\|php"; (imgext)
+;;          :publishing-directory "~/development/SKoschnicke.github.io/assets"; (imgdest)
+;;          :recursive t
+;;          :publishing-function org-publish-attachment)
 
-        ("blog" :components ("org-blog" "org-static-blog")); (combo)
-        ))
+;;         ("blog" :components ("org-blog" "org-static-blog")); (combo)
+;;         ))
 
 (provide 'init-org)
