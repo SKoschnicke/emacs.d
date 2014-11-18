@@ -15,6 +15,8 @@
 (global-set-key (kbd "C-c h x") 'helm-register)
 (global-set-key (kbd "C-c h SPC") 'helm-all-mark-rings)
 (global-set-key (kbd "C-c t") 'helm-cmd-t)
+(global-set-key (kbd "C-c g") 'helm-cmd-t-grep)
+(global-set-key (kbd "C-c m") 'helm-mini)
 
 (require 'helm-projectile)
 
