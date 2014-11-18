@@ -209,9 +209,12 @@
                                  "~/Dropbox/org/plan.org"
                                  )))
 
-(setq org-export-backends (quote (beamer
+(setq org-export-backends (quote (ascii
+                                  html
+                                  beamer
                                   latex
-                                  md)))
+                                  md
+                                  odt)))
 
 ;; (require 'org-publish)
 ;; (setq org-publish-project-alist
