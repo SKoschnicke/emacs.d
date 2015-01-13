@@ -16,6 +16,7 @@
       org-completion-use-ido t
       org-edit-timestamp-down-means-later t
       org-agenda-start-on-weekday nil
+      org-agenda-start-day "-1d"
       org-agenda-span 21
       org-agenda-include-diary t
       org-agenda-window-setup 'current-window
@@ -24,9 +25,12 @@
       org-pretty-entities t
       org-pretty-entities-include-sub-superscripts t
       org-agenda-log-mode-items (list 'closed 'clock 'state)
+      org-agenda-start-with-log-mode t
       org-agenda-skip-deadline-if-done t
       org-agenda-skip-scheduled-if-done t
-      org-tags-column 80)
+      org-tags-column 80
+      org-enforce-todo-dependencies t
+      org-agenda-dim-blocked-tasks t)
 
 
 ; Refile targets include this file and any file contributing to the agenda - up to 5 levels deep
