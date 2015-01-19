@@ -25,7 +25,7 @@
       org-export-kill-product-buffer-when-displayed t
       org-pretty-entities t
       org-pretty-entities-include-sub-superscripts t
-      org-agenda-log-mode-items (list 'closed 'clock 'state)
+      org-agenda-log-mode-items (list 'clock 'state)
       org-agenda-start-with-log-mode t
       org-agenda-skip-deadline-if-done t
       org-agenda-skip-scheduled-if-done t
@@ -120,18 +120,23 @@
                  '(todo-state-down effort-up category-keep))))
               (" " "Agenda"
                ((agenda "" nil)
-                (tags "REFILE"
-                      ((org-agenda-overriding-header "Tasks to Refile")
-                       (org-tags-match-list-sublevels nil)))
+                (tags-todo "-CANCELLED/!STARTED"
+                           ((org-agenda-overriding-header "Started Tasks")
+                            (org-tags-match-list-sublevels t)
+                            (org-agenda-sorting-strategy
+                             '(todo-state-down effort-up category-keep))))
                 (tags-todo "-CANCELLED/!NEXT"
                            ((org-agenda-overriding-header "Next Tasks")
                             (org-tags-match-list-sublevels t)
                             (org-agenda-sorting-strategy
-                             '(todo-state-down effort-up category-keep)))
+                             '(todo-state-down effort-up category-keep))))
+                (tags "REFILE"
+                      ((org-agenda-overriding-header "Tasks to Refile")
+                       (org-tags-match-list-sublevels nil)))
                 (tags-todo "-CANCELLED+WAITING|HOLD/!"
                            ((org-agenda-overriding-header "Waiting and Postponed Tasks")
                             (org-tags-match-list-sublevels nil))
-               nil)))))))
+               nil))))))
 
 ;; CUSTOM AGENDA END
 
@@ -240,14 +245,8 @@
                                  "~/Dropbox/org/plan.org"
                                  )))
 
-(setq org-export-backends (quote (ascii
-                                  html
-                                  beamer
-                                  latex
-                                  md
-                                  odt)))
+(require 'org-publish)
 
-;; (require 'org-publish)
 ;; (setq org-publish-project-alist
 ;;       '(("org-blog"; (name1)
 ;;          ;; Path to your org files.
@@ -275,5 +274,12 @@
 
 ;;         ("blog" :components ("org-blog" "org-static-blog")); (combo)
 ;;         ))
+
+(setq org-export-backends (quote (ascii
+                                  html
+                                  beamer
+                                  latex
+                                  md
+                                  odt)))
 
 (provide 'init-org)
