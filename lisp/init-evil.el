@@ -2,6 +2,9 @@
   (require-package 'evil)
   (add-hook 'after-init-hook 'evil-mode))
 
+(require 'key-chord)
+(key-chord-mode 1)
+
 (after-load 'evil
   (require-package 'evil-surround)
   (global-evil-surround-mode 1)
@@ -12,6 +15,7 @@
                     (previous-line nil)
                     (evil-scroll-line-up nil)
                     ))
+  (key-chord-define evil-insert-state-map "jj" 'evil-normal-state)
 )
 
 (provide 'init-evil)
