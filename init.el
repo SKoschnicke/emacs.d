@@ -149,6 +149,8 @@
             (message "init completed in %.2fms"
                      (sanityinc/time-subtract-millis after-init-time before-init-time))))
 
+(add-hook 'after-init-hook (lambda () (org-agenda nil " ")))
+(add-hook 'after-init-hook (lambda () (delete-other-windows)) t)
 
 (provide 'init)
 
