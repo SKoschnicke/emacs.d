@@ -10,7 +10,8 @@
 (define-key global-map (kbd "C-c l") 'org-store-link)
 (define-key global-map (kbd "C-c a") 'org-agenda)
 
-(setq org-modules (quote (org-w3m org-bbdb org-bibtex org-docview org-gnus org-info org-irc org-mhe org-rmail org-habits)))
+(setq org-modules (quote (org-w3m org-bbdb org-bibtex org-docview org-gnus org-info org-irc org-mhe org-rmail)))
+;(setq org-modules (quote (org-w3m org-bbdb org-bibtex org-docview org-gnus org-info org-irc org-mhe org-rmail org-habits)))
 
 ;; Various preferences
 (setq org-log-done t
@@ -114,10 +115,10 @@
       (quote (("N" "Notes" tags "NOTE"
                ((org-agenda-overriding-header "Notes")
                 (org-tags-match-list-sublevels t)))
-              ("h" "Habits" tags-todo "STYLE=\"habit\""
-               ((org-agenda-overriding-header "Habits")
-                (org-agenda-sorting-strategy
-                 '(todo-state-down effort-up category-keep))))
+              ;; ("h" "Habits" tags-todo "STYLE=\"habit\""
+              ;;  ((org-agenda-overriding-header "Habits")
+              ;;   (org-agenda-sorting-strategy
+              ;;    '(todo-state-down effort-up category-keep))))
               (" " "Agenda"
                ((agenda "" nil)
                 (tags-todo "-CANCELLED/!STARTED"
@@ -233,17 +234,32 @@
 (setq diary-file "~/Dropbox/org/diary")
 
 (after-load 'org
-    (setq org-agenda-files (list "~/Dropbox/org/gedanken.org"
-                                 "~/Dropbox/org/uni-plan.org"
-                                 "~/Dropbox/org/privat.org"
-                                 "~/Dropbox/org/notes.org"
-                                 "~/Dropbox/org/gfxpro.org"
-                                 "~/Dropbox/org/isavision.org"
-                                 "~/Dropbox/org/pav-plan.org"
-                                 "~/Dropbox/org/getdigital.org"
-                                 "~/Dropbox/org/qantrade.org"
-                                 "~/Dropbox/org/plan.org"
-                                 )))
+    (setq org-agenda-files (list "~/Dropbox/org"))
+
+    (setq org-directory "~/Dropbox/org")
+    (setq org-default-notes-file "~/Dropbox/org/refile.org")
+
+    ;; I use C-c c to start capture mode
+    (global-set-key (kbd "C-c c") 'org-capture)
+
+    ;; Capture templates for: TODO tasks, Notes, appointments, phone calls, meetings, and org-protocol
+    (setq org-capture-templates
+          (quote (("t" "todo" entry (file "~/Dropbox/org/refile.org")
+                   "* TODO %?\n%U\n%a\n" :clock-in t :clock-resume t)
+                  ("r" "respond" entry (file "~/Dropbox/org/refile.org")
+                   "* NEXT Respond to %:from on %:subject\nSCHEDULED: %t\n%U\n%a\n" :clock-in t :clock-resume t :immediate-finish t)
+                  ("n" "note" entry (file "~/Dropbox/org/refile.org")
+                   "* %? :NOTE:\n%U\n%a\n" :clock-in t :clock-resume t)
+                  ("j" "Journal" entry (file+datetree "~/Dropbox/org/diary.org")
+                   "* %?\n%U\n" :clock-in t :clock-resume t)
+                  ("w" "org-protocol" entry (file "~/Dropbox/org/refile.org")
+                   "* TODO Review %c\n%U\n" :immediate-finish t)
+                  ("m" "Meeting" entry (file "~/Dropbox/org/refile.org")
+                   "* MEETING with %? :MEETING:\n%U" :clock-in t :clock-resume t)
+                  ("p" "Phone call" entry (file "~/Dropbox/org/refile.org")
+                   "* PHONE %? :PHONE:\n%U" :clock-in t :clock-resume t)
+                  ("h" "Habit" entry (file "~/Dropbox/org/refile.org")
+                   "* NEXT %?\n%U\n%a\nSCHEDULED: %(format-time-string \"<%Y-%m-%d %a .+1d/3d>\")\n:PROPERTIES:\n:STYLE: habit\n:REPEAT_TO_STATE: NEXT\n:END:\n")))))
 
 (require 'org-publish)
 
