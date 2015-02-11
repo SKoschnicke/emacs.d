@@ -1,6 +1,11 @@
 (when (eval-when-compile (>= emacs-major-version 24))
+  (require-package 'evil-leader)
+  (add-hook 'after-init-hook 'global-evil-leader-mode)
   (require-package 'evil)
   (add-hook 'after-init-hook 'evil-mode))
+
+(require 'key-chord)
+(key-chord-mode 1)
 
 (after-load 'evil
   (require-package 'evil-surround)
@@ -12,6 +17,12 @@
                     (previous-line nil)
                     (evil-scroll-line-up nil)
                     ))
+  (key-chord-define evil-insert-state-map "jj" 'evil-normal-state)
+)
+
+(after-load 'evil-leader
+  (evil-leader/set-leader "<SPC>")
+  (evil-leader/set-key "s" 'save-buffer)
 )
 
 (provide 'init-evil)

@@ -7,26 +7,32 @@
   (autoload 'org-mac-grab-link "org-mac-link" nil t)
   (require-package 'org-mac-iCal))
 
-
 (define-key global-map (kbd "C-c l") 'org-store-link)
 (define-key global-map (kbd "C-c a") 'org-agenda)
+
+(setq org-modules (quote (org-w3m org-bbdb org-bibtex org-docview org-gnus org-info org-irc org-mhe org-rmail)))
+;(setq org-modules (quote (org-w3m org-bbdb org-bibtex org-docview org-gnus org-info org-irc org-mhe org-rmail org-habits)))
 
 ;; Various preferences
 (setq org-log-done t
       org-completion-use-ido t
       org-edit-timestamp-down-means-later t
       org-agenda-start-on-weekday nil
-      org-agenda-span 21
+      org-agenda-start-day "-1d"
+      org-agenda-span 14
       org-agenda-include-diary t
       org-agenda-window-setup 'current-window
       org-fast-tag-selection-single-key 'expert
       org-export-kill-product-buffer-when-displayed t
       org-pretty-entities t
       org-pretty-entities-include-sub-superscripts t
-      org-agenda-log-mode-items (list 'closed 'clock 'state)
+      org-agenda-log-mode-items (list 'clock 'state)
+      org-agenda-start-with-log-mode t
       org-agenda-skip-deadline-if-done t
       org-agenda-skip-scheduled-if-done t
-      org-tags-column 80)
+      org-tags-column 80
+      org-enforce-todo-dependencies t
+      org-agenda-dim-blocked-tasks t)
 
 
 ; Refile targets include this file and any file contributing to the agenda - up to 5 levels deep
@@ -38,8 +44,8 @@
 
 
 (setq org-todo-keywords
-      (quote ((sequence "TODO(t)" "STARTED(s)" "|" "DONE(d!/!)")
-              (sequence "WAITING(w@/!)" "SOMEDAY(S)" "|" "CANCELLED(c@/!)"))))
+      (quote ((sequence "TODO(t)" "NEXT(n)" "STARTED(s)" "|" "DONE(d!/!)")
+              (sequence "WAITING(w@/!)" "SOMEDAY(S)" "HOLD(h)" "|" "CANCELLED(c@/!)"))))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -103,6 +109,37 @@
 ;;                   (re-search-backward "^[0-9]+:[0-9]+-[0-9]+:[0-9]+ " nil t))
 ;;                 (insert (match-string 0))))))
 
+;; CUSTOM AGENDA
+;; Custom agenda command definitions
+(setq org-agenda-custom-commands
+      (quote (("N" "Notes" tags "NOTE"
+               ((org-agenda-overriding-header "Notes")
+                (org-tags-match-list-sublevels t)))
+              ;; ("h" "Habits" tags-todo "STYLE=\"habit\""
+              ;;  ((org-agenda-overriding-header "Habits")
+              ;;   (org-agenda-sorting-strategy
+              ;;    '(todo-state-down effort-up category-keep))))
+              (" " "Agenda"
+               ((agenda "" nil)
+                (tags-todo "-CANCELLED/!STARTED"
+                           ((org-agenda-overriding-header "Started Tasks")
+                            (org-tags-match-list-sublevels t)
+                            (org-agenda-sorting-strategy
+                             '(todo-state-down effort-up category-keep))))
+                (tags-todo "-CANCELLED/!NEXT"
+                           ((org-agenda-overriding-header "Next Tasks")
+                            (org-tags-match-list-sublevels t)
+                            (org-agenda-sorting-strategy
+                             '(todo-state-down effort-up category-keep))))
+                (tags "REFILE"
+                      ((org-agenda-overriding-header "Tasks to Refile")
+                       (org-tags-match-list-sublevels nil)))
+                (tags-todo "-CANCELLED+WAITING|HOLD/!"
+                           ((org-agenda-overriding-header "Waiting and Postponed Tasks")
+                            (org-tags-match-list-sublevels nil))
+               nil))))))
+
+;; CUSTOM AGENDA END
 
 (after-load 'org
   (define-key org-mode-map (kbd "C-M-<up>") 'org-up-element)
@@ -174,8 +211,8 @@
 ;;; calendar and diary
 (eval-after-load "calendar"
   '(european-calendar))
-(setq number-of-diary-entries 5
-      mark-diary-entries-in-calendar t
+(setq diary-number-of-entries 5
+      calendar-mark-diary-entries-flag t
       calendar-offset -1
       calendar-location-name "Kiel"
       calendar-latitude 54.33
@@ -197,26 +234,35 @@
 (setq diary-file "~/Dropbox/org/diary")
 
 (after-load 'org
-    (setq org-agenda-files (list "~/Dropbox/org/gedanken.org"
-                                 "~/Dropbox/org/uni-plan.org"
-                                 "~/Dropbox/org/privat.org"
-                                 "~/Dropbox/org/notes.org"
-                                 "~/Dropbox/org/gfxpro.org"
-                                 "~/Dropbox/org/isavision.org"
-                                 "~/Dropbox/org/pav-plan.org"
-                                 "~/Dropbox/org/getdigital.org"
-                                 "~/Dropbox/org/qantrade.org"
-                                 "~/Dropbox/org/plan.org"
-                                 )))
+    (setq org-agenda-files (list "~/Dropbox/org"))
 
-(setq org-export-backends (quote (ascii
-                                  html
-                                  beamer
-                                  latex
-                                  md
-                                  odt)))
+    (setq org-directory "~/Dropbox/org")
+    (setq org-default-notes-file "~/Dropbox/org/refile.org")
 
-;; (require 'org-publish)
+    ;; I use C-c c to start capture mode
+    (global-set-key (kbd "C-c c") 'org-capture)
+
+    ;; Capture templates for: TODO tasks, Notes, appointments, phone calls, meetings, and org-protocol
+    (setq org-capture-templates
+          (quote (("t" "todo" entry (file "~/Dropbox/org/refile.org")
+                   "* TODO %?\n%U\n%a\n" :clock-in t :clock-resume t)
+                  ("r" "respond" entry (file "~/Dropbox/org/refile.org")
+                   "* NEXT Respond to %:from on %:subject\nSCHEDULED: %t\n%U\n%a\n" :clock-in t :clock-resume t :immediate-finish t)
+                  ("n" "note" entry (file "~/Dropbox/org/refile.org")
+                   "* %? :NOTE:\n%U\n%a\n" :clock-in t :clock-resume t)
+                  ("j" "Journal" entry (file+datetree "~/Dropbox/org/diary.org")
+                   "* %?\n%U\n" :clock-in t :clock-resume t)
+                  ("w" "org-protocol" entry (file "~/Dropbox/org/refile.org")
+                   "* TODO Review %c\n%U\n" :immediate-finish t)
+                  ("m" "Meeting" entry (file "~/Dropbox/org/refile.org")
+                   "* MEETING with %? :MEETING:\n%U" :clock-in t :clock-resume t)
+                  ("p" "Phone call" entry (file "~/Dropbox/org/refile.org")
+                   "* PHONE %? :PHONE:\n%U" :clock-in t :clock-resume t)
+                  ("h" "Habit" entry (file "~/Dropbox/org/refile.org")
+                   "* NEXT %?\n%U\n%a\nSCHEDULED: %(format-time-string \"<%Y-%m-%d %a .+1d/3d>\")\n:PROPERTIES:\n:STYLE: habit\n:REPEAT_TO_STATE: NEXT\n:END:\n")))))
+
+(require 'org-publish)
+
 ;; (setq org-publish-project-alist
 ;;       '(("org-blog"; (name1)
 ;;          ;; Path to your org files.
@@ -244,5 +290,12 @@
 
 ;;         ("blog" :components ("org-blog" "org-static-blog")); (combo)
 ;;         ))
+
+(setq org-export-backends (quote (ascii
+                                  html
+                                  beamer
+                                  latex
+                                  md
+                                  odt)))
 
 (provide 'init-org)
