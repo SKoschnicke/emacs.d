@@ -261,7 +261,7 @@
                   ("h" "Habit" entry (file "~/Dropbox/org/refile.org")
                    "* NEXT %?\n%U\n%a\nSCHEDULED: %(format-time-string \"<%Y-%m-%d %a .+1d/3d>\")\n:PROPERTIES:\n:STYLE: habit\n:REPEAT_TO_STATE: NEXT\n:END:\n")))))
 
-(require 'org-publish)
+;(require 'org-publish)
 
 ;; (setq org-publish-project-alist
 ;;       '(("org-blog"; (name1)
