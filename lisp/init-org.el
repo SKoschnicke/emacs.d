@@ -10,6 +10,25 @@
 (define-key global-map (kbd "C-c l") 'org-store-link)
 (define-key global-map (kbd "C-c a") 'org-agenda)
 
+;; TODO: why do we have to load the exporter libs manually here?
+(eval-after-load "org"
+  '(require 'ox-md nil t))
+(eval-after-load "org"
+  '(require 'ox-ascii nil t))
+(eval-after-load "org"
+  '(require 'ox-odt nil t))
+(eval-after-load "org"
+  '(require 'ox-beamer nil t))
+(eval-after-load "org"
+  '(require 'ox-latex nil t))
+
+(setq org-export-backends (quote (ascii
+                                  html
+                                  beamer
+                                  latex
+                                  md
+                                  odt)))
+
 (setq org-modules (quote (org-w3m org-bbdb org-bibtex org-docview org-gnus org-info org-irc org-mhe org-rmail)))
 ;(setq org-modules (quote (org-w3m org-bbdb org-bibtex org-docview org-gnus org-info org-irc org-mhe org-rmail org-habits)))
 
@@ -289,11 +308,49 @@
 ;;         ("blog" :components ("org-blog" "org-static-blog")); (combo)
 ;;         ))
 
-(setq org-export-backends (quote (ascii
-                                  html
-                                  beamer
-                                  latex
-                                  md
-                                  odt)))
+    ;; I use C-c c to start capture mode
+    (global-set-key (kbd "C-c c") 'org-capture)
+
+    ;; Capture templates for: TODO tasks, Notes, appointments, phone calls, meetings, and org-protocol
+    (setq org-capture-templates
+          (quote (("t" "todo" entry (file "~/Dropbox/org/refile.org")
+                   "* TODO %?\n%U\n%a\n")
+                  ("r" "respond" entry (file "~/Dropbox/org/refile.org")
+                   "* NEXT Respond to %:from on %:subject\nSCHEDULED: %t\n%U\n%a\n")
+                  ("n" "note" entry (file "~/Dropbox/org/refile.org")
+                   "* %? :NOTE:\n%U\n%a\n")
+                  ("j" "Journal" entry (file+datetree "~/Dropbox/org/diary.org")
+                   "* %?\n%U\n")
+                  ("m" "Meeting" entry (file "~/Dropbox/org/refile.org")
+                   "* MEETING with %? :MEETING:\n%U" :clock-in t :clock-resume t)
+                  ("p" "Phone call" entry (file "~/Dropbox/org/refile.org")
+                   "* PHONE %? :PHONE:\n%U" :clock-in t :clock-resume t)
+                  ("h" "Habit" entry (file "~/Dropbox/org/refile.org")
+                   "* NEXT %?\n%U\n%a\nSCHEDULED: %(format-time-string \"<%Y-%m-%d %a .+1d/3d>\")\n:PROPERTIES:\n:STYLE: habit\n:REPEAT_TO_STATE: NEXT\n:END:\n"))))
+
+;(require 'org-publish)
+
+;; (setq org-publish-project-alist
+;;       '(("org-blog"; (name1)
+;;          ;; Path to your org files.
+;;          :base-directory "~/development/SKoschnicke.github.io/org"; (srcdir)
+;;          :base-extension "org"; (extension)
+;;          ;; Path to your Jekyll project.
+;;          :publishing-directory "~/development/SKoschnicke.github.io/_posts"; (destination)
+;;          :recursive t
+;;          ;; this was for org-mode pre-version 8
+;;          ;;:publishing-function org-publish-org-to-html
+;;          ;; this is for org-mode version 8 and on
+;;          :publishing-function org-html-publish-to-html
+;;          :headline-levels 4
+;;          :html-extension "html"
+;;          :body-only t ;; Only export section between <body> </body> (body-only)
+;;          :with-toc nil ;; no table of contents (breaks jekyll yaml frontmatter)
+;;          :section-numbers nil ;; no section numbering
+;;          )
+;;         ("org-static-blog"; (name2)
+;;          :base-directory "~/development/SKoschnicke.github.io/org/images"; (imgsrc)
+;;          :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf\\|php"; (imgext)
+;;          :publishing-directory "~/development/SKoschnicke.github.io/assets"; (imgdest)
 
 (provide 'init-org)
