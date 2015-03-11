@@ -27,6 +27,7 @@
 (after-load 'evil-leader
   (evil-leader/set-leader "<SPC>")
   (evil-leader/set-key "s" 'save-buffer)
+  (evil-leader/set-key "f" 'helm-swoop)
 )
 
 (provide 'init-evil)

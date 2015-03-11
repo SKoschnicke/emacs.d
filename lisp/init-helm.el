@@ -8,6 +8,7 @@
 (require 'helm-config)
 (require 'helm-files)
 (require 'helm-grep)
+(require 'helm-swoop)
 
 (global-set-key (kbd "C-c h o") 'helm-occur)
 (global-set-key (kbd "C-c h g") 'helm-do-grep)
