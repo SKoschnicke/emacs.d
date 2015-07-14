@@ -238,6 +238,8 @@
 
     (setq org-directory "~/Dropbox/org")
     (setq org-default-notes-file "~/Dropbox/org/refile.org")
+    (setq org-mobile-directory "~/Dropbox/MobileOrg")
+    (setq org-mobile-inbox-for-pull "~/Dropbox/org/from-mobile.org")
 
     ;; I use C-c c to start capture mode
     (global-set-key (kbd "C-c c") 'org-capture)
