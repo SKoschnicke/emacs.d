@@ -21,13 +21,18 @@
   '(require 'ox-beamer nil t))
 (eval-after-load "org"
   '(require 'ox-latex nil t))
+(eval-after-load "org"
+  '(require 'ox-asciidoc nil t))
+(eval-after-load "org"
+  '(require 'org-capture))
 
 (setq org-export-backends (quote (ascii
                                   html
                                   beamer
                                   latex
                                   md
-                                  odt)))
+                                  odt
+                                  asciidoc)))
 
 (setq org-modules (quote (org-w3m org-bbdb org-bibtex org-docview org-gnus org-info org-irc org-mhe org-rmail)))
 ;(setq org-modules (quote (org-w3m org-bbdb org-bibtex org-docview org-gnus org-info org-irc org-mhe org-rmail org-habits)))
