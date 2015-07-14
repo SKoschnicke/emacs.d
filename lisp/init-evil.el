@@ -18,11 +18,16 @@
                     (evil-scroll-line-up nil)
                     ))
   (key-chord-define evil-insert-state-map "jj" 'evil-normal-state)
+
+  ; jumping over buffer boundaries, like in vim
+  (require-package 'evil-jumper)
+  (global-evil-jumper-mode 1)
 )
 
 (after-load 'evil-leader
   (evil-leader/set-leader "<SPC>")
   (evil-leader/set-key "s" 'save-buffer)
+  (evil-leader/set-key "f" 'helm-swoop)
 )
 
 (provide 'init-evil)
