@@ -2,6 +2,7 @@
 (require-package 'helm)
 (require-package 'helm-cmd-t)
 (require-package 'helm-projectile)
+(require-package 'helm-swoop)
 
 (setq helm-command-prefix-key "C-c h")
 
@@ -18,8 +19,6 @@
 (global-set-key (kbd "C-c t") 'helm-cmd-t)
 (global-set-key (kbd "C-c g") 'helm-cmd-t-grep)
 (global-set-key (kbd "C-c m") 'helm-mini)
-
-(require 'helm-projectile)
 
 (helm-mode 1)
 
