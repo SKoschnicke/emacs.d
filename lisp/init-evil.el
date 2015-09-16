@@ -31,6 +31,7 @@
   (evil-leader/set-leader "<SPC>")
   (evil-leader/set-key "s" 'save-buffer)
   (evil-leader/set-key "f" 'helm-swoop)
+  (evil-leader/set-key "w" 'whitespace-cleanup)
 )
 
 (provide 'init-evil)
