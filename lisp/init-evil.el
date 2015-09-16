@@ -22,12 +22,16 @@
   ; jumping over buffer boundaries, like in vim
   (require-package 'evil-jumper)
   (global-evil-jumper-mode 1)
+
+  (setq evil-disabled-modes-list
+        '(pivotal-mode))
 )
 
 (after-load 'evil-leader
   (evil-leader/set-leader "<SPC>")
   (evil-leader/set-key "s" 'save-buffer)
   (evil-leader/set-key "f" 'helm-swoop)
+  (evil-leader/set-key "w" 'whitespace-cleanup)
 )
 
 (provide 'init-evil)

@@ -21,13 +21,18 @@
   '(require 'ox-beamer nil t))
 (eval-after-load "org"
   '(require 'ox-latex nil t))
+(eval-after-load "org"
+  '(require 'ox-asciidoc nil t))
+(eval-after-load "org"
+  '(require 'org-capture))
 
 (setq org-export-backends (quote (ascii
                                   html
                                   beamer
                                   latex
                                   md
-                                  odt)))
+                                  odt
+                                  asciidoc)))
 
 (setq org-modules (quote (org-w3m org-bbdb org-bibtex org-docview org-gnus org-info org-irc org-mhe org-rmail)))
 ;(setq org-modules (quote (org-w3m org-bbdb org-bibtex org-docview org-gnus org-info org-irc org-mhe org-rmail org-habits)))
@@ -139,7 +144,7 @@
               ;;   (org-agenda-sorting-strategy
               ;;    '(todo-state-down effort-up category-keep))))
               (" " "Agenda"
-               ((agenda "" nil)
+               ((agenda "" ((org-agenda-span 2) (org-agenda-start-day "0d")))
                 (tags-todo "-CANCELLED/!STARTED"
                            ((org-agenda-overriding-header "Started Tasks")
                             (org-tags-match-list-sublevels t)
@@ -156,7 +161,10 @@
                 (tags-todo "-CANCELLED+WAITING|HOLD/!"
                            ((org-agenda-overriding-header "Waiting and Postponed Tasks")
                             (org-tags-match-list-sublevels nil))
-               nil))))))
+                           nil)))
+              ("O" "Overview" agenda ""
+               ((org-agenda-span 14) (org-agenda-start-day "-1d")
+                )))))
 
 ;; CUSTOM AGENDA END
 
@@ -256,9 +264,10 @@
 (after-load 'org
     (when (file-accessible-directory-p "~/Dropbox/org")
       (setq org-agenda-files (list "~/Dropbox/org"))
-
       (setq org-directory "~/Dropbox/org")
-      (setq org-default-notes-file "~/Dropbox/org/refile.org"))
+      (setq org-default-notes-file "~/Dropbox/org/refile.org")
+      (setq org-mobile-directory "~/Dropbox/MobileOrg")
+      (setq org-mobile-inbox-for-pull "~/Dropbox/org/from-mobile.org"))
 
     ;; I use C-c c to start capture mode
     (global-set-key (kbd "C-c c") 'org-capture)
