@@ -22,6 +22,9 @@
   ; jumping over buffer boundaries, like in vim
   (require-package 'evil-jumper)
   (global-evil-jumper-mode 1)
+
+  (setq evil-disabled-modes-list
+        '(pivotal-mode))
 )
 
 (after-load 'evil-leader
