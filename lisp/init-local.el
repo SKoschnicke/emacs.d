@@ -19,3 +19,5 @@
     (when new-kill-string
       (message "%s copied" new-kill-string)
       (kill-new new-kill-string))))
+
+(provide 'init-local)
