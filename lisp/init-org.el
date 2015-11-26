@@ -144,7 +144,7 @@
               ;;   (org-agenda-sorting-strategy
               ;;    '(todo-state-down effort-up category-keep))))
               (" " "Agenda"
-               ((agenda "" nil)
+               ((agenda "" ((org-agenda-span 2) (org-agenda-start-day "0d")))
                 (tags-todo "-CANCELLED/!STARTED"
                            ((org-agenda-overriding-header "Started Tasks")
                             (org-tags-match-list-sublevels t)
@@ -161,7 +161,10 @@
                 (tags-todo "-CANCELLED+WAITING|HOLD/!"
                            ((org-agenda-overriding-header "Waiting and Postponed Tasks")
                             (org-tags-match-list-sublevels nil))
-               nil))))))
+                           nil)))
+              ("O" "Overview" agenda ""
+               ((org-agenda-span 14) (org-agenda-start-day "-1d")
+                )))))
 
 ;; CUSTOM AGENDA END
 
