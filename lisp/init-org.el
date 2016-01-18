@@ -258,35 +258,35 @@
                           (holiday-easter-etc 39 "Gesetzlicher Feiertag (Christi Himmelfahrt)")
                           (holiday-easter-etc 50 "Gesetzlicher Feiertag (Pfingstmontag)")))
 
-(when (file-accessible-directory-p "~/Dropbox/org")
-    (setq diary-file "~/Dropbox/org/diary"))
+(when (file-accessible-directory-p "~/SpiderOak Hive/org")
+    (setq diary-file "~/SpiderOak Hive/org/diary"))
 
 (after-load 'org
-    (when (file-accessible-directory-p "~/Dropbox/org")
-      (setq org-agenda-files (list "~/Dropbox/org"))
-      (setq org-directory "~/Dropbox/org")
-      (setq org-default-notes-file "~/Dropbox/org/refile.org")
-      (setq org-mobile-directory "~/Dropbox/MobileOrg")
-      (setq org-mobile-inbox-for-pull "~/Dropbox/org/from-mobile.org"))
+    (when (file-accessible-directory-p "~/SpiderOak Hive/org")
+      (setq org-agenda-files (list "~/SpiderOak Hive/org"))
+      (setq org-directory "~/SpiderOak Hive/org")
+      (setq org-default-notes-file "~/SpiderOak Hive/org/refile.org")
+      (setq org-mobile-directory "~/SpiderOak Hive/MobileOrg")
+      (setq org-mobile-inbox-for-pull "~/SpiderOak Hive/org/from-mobile.org"))
 
     ;; I use C-c c to start capture mode
     (global-set-key (kbd "C-c c") 'org-capture)
 
     ;; Capture templates for: TODO tasks, Notes, appointments, phone calls, meetings, and org-protocol
     (setq org-capture-templates
-          (quote (("t" "todo" entry (file "~/Dropbox/org/refile.org")
+          (quote (("t" "todo" entry (file "~/SpiderOak Hive/org/refile.org")
                    "* TODO %?\n%U\n%a\n")
-                  ("r" "respond" entry (file "~/Dropbox/org/refile.org")
+                  ("r" "respond" entry (file "~/SpiderOak Hive/org/refile.org")
                    "* NEXT Respond to %:from on %:subject\nSCHEDULED: %t\n%U\n%a\n")
-                  ("n" "note" entry (file "~/Dropbox/org/refile.org")
+                  ("n" "note" entry (file "~/SpiderOak Hive/org/refile.org")
                    "* %? :NOTE:\n%U\n%a\n")
-                  ("j" "Journal" entry (file+datetree "~/Dropbox/org/diary.org")
+                  ("j" "Journal" entry (file+datetree "~/SpiderOak Hive/org/diary.org")
                    "* %?\n%U\n")
-                  ("m" "Meeting" entry (file "~/Dropbox/org/refile.org")
+                  ("m" "Meeting" entry (file "~/SpiderOak Hive/org/refile.org")
                    "* MEETING with %? :MEETING:\n%U" :clock-in t :clock-resume t)
-                  ("p" "Phone call" entry (file "~/Dropbox/org/refile.org")
+                  ("p" "Phone call" entry (file "~/SpiderOak Hive/org/refile.org")
                    "* PHONE %? :PHONE:\n%U" :clock-in t :clock-resume t)
-                  ("h" "Habit" entry (file "~/Dropbox/org/refile.org")
+                  ("h" "Habit" entry (file "~/SpiderOak Hive/org/refile.org")
                    "* NEXT %?\n%U\n%a\nSCHEDULED: %(format-time-string \"<%Y-%m-%d %a .+1d/3d>\")\n:PROPERTIES:\n:STYLE: habit\n:REPEAT_TO_STATE: NEXT\n:END:\n")))))
 
 ;(require 'org-publish)
@@ -324,19 +324,19 @@
 
     ;; Capture templates for: TODO tasks, Notes, appointments, phone calls, meetings, and org-protocol
     (setq org-capture-templates
-          (quote (("t" "todo" entry (file "~/Dropbox/org/refile.org")
+          (quote (("t" "todo" entry (file "~/SpiderOak Hive/org/refile.org")
                    "* TODO %?\n%U\n%a\n")
-                  ("r" "respond" entry (file "~/Dropbox/org/refile.org")
+                  ("r" "respond" entry (file "~/SpiderOak Hive/org/refile.org")
                    "* NEXT Respond to %:from on %:subject\nSCHEDULED: %t\n%U\n%a\n")
-                  ("n" "note" entry (file "~/Dropbox/org/refile.org")
+                  ("n" "note" entry (file "~/SpiderOak Hive/org/refile.org")
                    "* %? :NOTE:\n%U\n%a\n")
-                  ("j" "Journal" entry (file+datetree "~/Dropbox/org/diary.org")
+                  ("j" "Journal" entry (file+datetree "~/SpiderOak Hive/org/diary.org")
                    "* %?\n%U\n")
-                  ("m" "Meeting" entry (file "~/Dropbox/org/refile.org")
+                  ("m" "Meeting" entry (file "~/SpiderOak Hive/org/refile.org")
                    "* MEETING with %? :MEETING:\n%U" :clock-in t :clock-resume t)
-                  ("p" "Phone call" entry (file "~/Dropbox/org/refile.org")
+                  ("p" "Phone call" entry (file "~/SpiderOak Hive/org/refile.org")
                    "* PHONE %? :PHONE:\n%U" :clock-in t :clock-resume t)
-                  ("h" "Habit" entry (file "~/Dropbox/org/refile.org")
+                  ("h" "Habit" entry (file "~/SpiderOak Hive/org/refile.org")
                    "* NEXT %?\n%U\n%a\nSCHEDULED: %(format-time-string \"<%Y-%m-%d %a .+1d/3d>\")\n:PROPERTIES:\n:STYLE: habit\n:REPEAT_TO_STATE: NEXT\n:END:\n"))))
 
 ;(require 'org-publish)
