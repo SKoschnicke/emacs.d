@@ -19,6 +19,8 @@
 (global-set-key (kbd "C-c t") 'helm-cmd-t)
 (global-set-key (kbd "C-c g") 'helm-cmd-t-grep)
 (global-set-key (kbd "C-c m") 'helm-mini)
+(global-set-key (kbd "C-x C-f") 'helm-find-files)
+(global-set-key (kbd "M-x") 'helm-M-x)
 
 (helm-mode 1)
 
