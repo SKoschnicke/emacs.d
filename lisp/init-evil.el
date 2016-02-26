@@ -23,9 +23,9 @@
   (require-package 'evil-jumper)
   (global-evil-jumper-mode 1)
 
-  (setq evil-disabled-modes-list
-        '(pivotal-mode
-          desktop-registry-list-mode))
+  ; modes that should be started in emacs normal mode
+  (add-to-list 'evil-emacs-state-modes 'pivotal-mode)
+  (add-to-list 'evil-emacs-state-modes 'desktop-registry-list-mode)
 )
 
 (after-load 'evil-leader
