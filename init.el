@@ -104,7 +104,8 @@
 (require 'init-wanderlust)
 (require 'init-latex)
 (require 'init-scala)
-(require 'init-coq)
+;(require 'init-coq)
+(require 'init-spaceline)
 
 ;; Extra packages which don't require any configuration
 
