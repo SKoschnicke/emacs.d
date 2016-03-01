@@ -19,9 +19,8 @@
                     ))
   (key-chord-define evil-insert-state-map "jj" 'evil-normal-state)
 
-  ; jumping over buffer boundaries, like in vim
-  (require-package 'evil-jumper)
-  (global-evil-jumper-mode 1)
+  (require-package 'evil-magit)
+  (require 'evil-magit)
 
   ; modes that should be started in emacs normal mode
   (add-to-list 'evil-emacs-state-modes 'pivotal-mode)
