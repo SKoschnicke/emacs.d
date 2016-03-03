@@ -194,7 +194,7 @@
             "calc" "asymptote" "dot" "gnuplot" "ledger" "lilypond" "mscgen"
             "octave" "oz" "plantuml" "R" "sass" "screen" "sql" "awk" "ditaa"
             "haskell" "latex" "lisp" "matlab" "ocaml" "org" "perl" "ruby"
-            "scheme" "sqlite" "javascript")))
+            "scheme" "sqlite" "javascript" "scala")))
      (list (ido-completing-read "Source code type: " src-code-types))))
   (progn
     (newline-and-indent)
